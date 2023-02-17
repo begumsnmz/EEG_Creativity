@@ -1,0 +1,22 @@
+The scripts were run on the raw data in the order:
+1. eeglab_cutdata
+2. eeglab_preprocessing
+3. runICAlabel
+4. eeglab_ref_epoch
+
+1. eeglab_cutdata: This script takes the raw EEG recording and removes the continuous unwanted segments of data with respect to the stimuli that determine the 
+end of eyes-closed, and the start/end of eyes-open periods.
+
+2. eeglab_preprocessing: This script takes the output of the first and applies the initial preprocessing steps:
+  - Notch filtering at 50 Hz
+  - High-pass filter with cutoff 0.5 Hz
+  - Average re-referencing of channels
+  - Interpolation of bad channels ('Fp1' and 'Fp2')
+  - Detrending
+  - Average re-referencing
+  
+3. runICAlabel: This script takes the output of the second, and applies ICA to the pre-processed data with the 'runica' algorithm. It then labels components as artifacts
+using ICLabel (Pion-Tonachini, Kreutz-Delgado, Makeig, 2019). Finally, it flags and removes eye and muscle artifacts with probabilities in the range [.9-1].
+
+4. eeglab_ref_epoch: This script takes the output of the third, and epochs the data into two: "Eyes-Closed" and "Eyes-Open" with respect to the relative stimuli.
+It then removes the baseline from each epoch (1000 ms) and applies a final average re-referencing.
