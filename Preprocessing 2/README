@@ -1,0 +1,18 @@
+The scripts here take the final output of "Preprocessing 1" and are run in the following order:
+
+1. eeglab_subepoching_autrej
+2. eeglab_uniform_cut
+
+1. eeglab_sub_epoching_autrej: The EEG data, now comprising of two epochs, is further segmented into 200ms sub-epochs, with a total of 1200 epochs (600 per condition) 
+for the 4 minute total recording. 
+This sub-epoching is not included in the script, since it was done for different groups/subjects manually. Instead, the resulting eventslists for each group/subject
+are loaded into the script and are used to segment the data of the respective subjects belonging to the groups.
+
+After the sub-epoching the data is again separated into eyes-closed/eyes-open conditions (first and last 600 epochs, respectively)
+Then these epochs are rejected with respect to kurtosis of activity with a SD threshold of 6.
+
+Afterwards, the eyes-closed and eyes-open data are saved in separate files for further processing.
+
+2. eeglab_uniform_cut: Takes the output of the previous script. The automatic rejection of epochs keeps different amounts of data per subject, and this is not desirable
+for further spectral and statistical analysis. Therefore, here, the minimum number of epochs (n) is determined across all subjects and for both conditions, and the
+number of epochs is taken as the first n epochs for all subjects/conditions to achieve uniform data length.
