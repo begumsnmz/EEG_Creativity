@@ -1,0 +1,23 @@
+This script takes the pre-processed data and applies alpha-power analysis, using the MATLAB function pwelch with the following parameters:
+
+*srate = sampling rate of the EEG signal = 250 Hz*
+NOVERLAP = 0; %amount of overlap between windows
+NFFT = srate; %number of discrete Fourier transform (DFT) points
+WINDOW = srate; %Size of Hamming Window
+[spectra,freqs] = pwelch(dataset(ch,:),WINDOW*2,NOVERLAP, NFFT, srate);
+
+From the spectra produces, the script extracts these wavebands of interest:
+- delta = 1-4 Hz
+- theta = 4-8 Hz
+- beta = 13-30 Hz
+- gamma = 30-80 Hz
+
+- Alpha1 = 8-13 Hz
+- Alpha2 = 7.5-12.5 Hz
+- Alpha3 = 7.5-10 Hz
+- Alpha4 = 10-12.5 Hz
+- Alpha5 (referred to in the script as lowAlpha) = 8-10 Hz
+- Alpha6 (referred to in the the script as highAlpha) = 10-13 Hz
+
+Finally, the log mean power is calculated for all intervals
+*The power analysis is done for each subject, condition and channel separately.
