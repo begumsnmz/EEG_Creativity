@@ -28,7 +28,9 @@ EEG.event = EEG.event(~strcmp({EEG.event.type},'R  7'));
 EEG.event = EEG.event(~strcmp({EEG.event.type},'R 15'));
 [ALLEEG EEG] = eeg_store(ALLEEG, EEG, CURRENTSET);
 
-%Epoch data with respect to the 
+%Epoch data with respect to the stimuli "start" and "S  7"
+%The stimulus "start" is manually inserted here to mark the beginning of
+%"eyes-closed"
 EEG = pop_editeventvals(EEG,'insert',{1,[],[],[],[],[],[],[],[],[]},'changefield',{1,'latency',1},'changefield',{1,'duration',0.004},'changefield',{1,'type','Start'},'changefield',{1,'code','Start'});
 [ALLEEG EEG] = eeg_store(ALLEEG, EEG, CURRENTSET);
 EEG = eeg_checkset( EEG );
